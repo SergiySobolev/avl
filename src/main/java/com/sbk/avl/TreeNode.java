@@ -11,13 +11,23 @@ import java.util.Objects;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TreeNode {
+class TreeNode {
     private int val;
     private TreeNode parent;
     private TreeNode left;
     private TreeNode right;
     TreeNode(int val){
         this.val = val;
+    }
+    TreeNode(int val, TreeNode parent){
+        this.val = val;
+        this.parent = parent;
+    }
+    boolean hasLeftChild(){
+        return Objects.nonNull(left);
+    }
+    boolean hasRightChild(){
+        return Objects.nonNull(right);
     }
     int height() {
         return  1 + Math.max(

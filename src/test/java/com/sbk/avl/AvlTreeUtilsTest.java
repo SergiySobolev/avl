@@ -48,4 +48,21 @@ public class AvlTreeUtilsTest {
         assertEquals(tn.getRight().getLeft().getParent(), tn.getRight());
     }
 
+    @Test
+    public void test_print_1() throws Exception {
+        AvlTree tree = buildAvlTreeFromArray(1,2,3,4,5,6,7,8);
+        tree.print();
+    }
+    @Test
+    public void test_print_2() throws Exception {
+        AvlTree tree = buildAvlTreeFromArray(1,
+                2,3,
+                4,5,null,null,
+                null,null,10,11,null,null,null,null,
+                null,null,null,null,20,21,22,23,null,null,null,null,null,null,null,null
+        );
+
+        tree.print();
+    }
+
 }
