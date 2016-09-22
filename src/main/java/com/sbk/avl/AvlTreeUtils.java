@@ -3,12 +3,17 @@ package com.sbk.avl;
 import java.util.Objects;
 
 public class AvlTreeUtils {
-    static AvlTree fromArray(Integer... a) {
-        if(a.length == 0) return new AvlTree(null);
+    static AvlTree buildAvlTreeFromArray(Integer... a) {
+        return new AvlTree(buildTreeNodeFromArray(a));
+    }
+
+    static TreeNode buildTreeNodeFromArray(Integer... a) {
+        if(a.length == 0) return null;
         TreeNode treeNode = new TreeNode(a[0]);
         fromArray(treeNode, 0, a);
-        return new AvlTree(treeNode);
+        return treeNode;
     }
+
 
     private static void fromArray(TreeNode root, int startIndex, Integer... a) {
         int leftSubtreeIdx = 2*startIndex + 1;
