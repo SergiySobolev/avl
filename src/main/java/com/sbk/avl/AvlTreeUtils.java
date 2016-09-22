@@ -14,7 +14,6 @@ public class AvlTreeUtils {
         return treeNode;
     }
 
-
     private static void fromArray(TreeNode root, int startIndex, Integer... a) {
         int leftSubtreeIdx = 2*startIndex + 1;
         int rightSubtreeIdx = 2*startIndex + 2;
