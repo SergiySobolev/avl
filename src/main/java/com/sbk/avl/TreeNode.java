@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Slf4j
 class TreeNode {
     private int val;
     private TreeNode parent;
@@ -25,6 +27,19 @@ class TreeNode {
     TreeNode(int val, TreeNode parent){
         this.val = val;
         this.parent = parent;
+    }
+    void LLRotation() {
+        if(this.hasLeftChild()) {
+            log.info("LL rotation around node [{}]", val);
+            TreeNode newRoot = left;
+            TreeNode newRootRight = left.getRight();
+            newRoot.setParent(this.parent);
+            this.setLeft(newRoot.getLeft());
+            newRoot.setRight(this);
+            this.getParent().setLeft(newRoot);
+            this.setParent(newRoot);
+            this.setLeft(newRootRight);
+        }
     }
     void rotateLeft(){
         right.setParent(this.parent);
@@ -39,6 +54,9 @@ class TreeNode {
     boolean hasRightChild(){
         return Objects.nonNull(right);
     }
+    boolean hasParent(){
+        return Objects.nonNull(parent);
+    }
     int height() {
         return  1 + Math.max(
                 Objects.nonNull(getLeft()) ? getLeft().height() : 0,
@@ -46,8 +64,8 @@ class TreeNode {
         );
     }
     int balanceFactor() {
-        return Math.abs((Objects.nonNull(getLeft()) ? getLeft().height() : 0)
-                - (Objects.nonNull(getRight()) ? getRight().height() : 0));
+        return (Objects.nonNull(getLeft()) ? getLeft().height() : 0)
+                - (Objects.nonNull(getRight()) ? getRight().height() : 0);
     }
     void print(){
         int height = this.height();
@@ -83,5 +101,13 @@ class TreeNode {
             }
 
         }
+    }
+    @Override
+    public String toString() {
+        return new StringBuilder().append("[Val=").append(val)
+                .append(" Parent=").append(parent == null ? "" : parent.getVal())
+                .append(" Left=").append(left == null ? "" : left.getVal())
+                .append(" Right=").append(right == null ? "" : right.getVal())
+                .toString();
     }
 }

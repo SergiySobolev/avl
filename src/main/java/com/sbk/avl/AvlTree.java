@@ -2,15 +2,13 @@ package com.sbk.avl;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 @Getter
 @AllArgsConstructor
+@Slf4j
 class AvlTree {
     private TreeNode root;
     void insert(int newKey){
@@ -22,6 +20,7 @@ class AvlTree {
 
     private void insert(int newKey, TreeNode parent) {
         assert Objects.nonNull(parent);
+        log.info("Inserting key [{}] at node [{}]", newKey, parent.getVal());
         if(parent.getVal() > newKey) {
             if(parent.hasLeftChild()) {
                 insert(newKey, parent.getLeft());
@@ -36,7 +35,23 @@ class AvlTree {
                 parent.setRight(new TreeNode(newKey, parent));
             }
         }
+        balance(parent);
+    }
 
+    private void balance(TreeNode node) {
+        assert Objects.nonNull(node);
+        int balanceFactor = node.balanceFactor();
+        if(balanceFactor == 2){
+            balanceLeft(node);
+        }
+        if(node.hasParent()) balance(node.getParent());
+    }
+
+    private void balanceLeft(TreeNode node) {
+        assert node.hasLeftChild();
+        if(node.getLeft().balanceFactor() == 1){
+            node.LLRotation();
+        }
     }
 
     void print(){
