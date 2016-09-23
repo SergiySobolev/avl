@@ -41,6 +41,23 @@ class TreeNode {
             this.setLeft(newRootRight);
         }
     }
+
+    void LRRotation() {
+        if(this.hasLeftChild()) {
+            log.info("LR rotation around node [{}]", val);
+            TreeNode newRoot = left.getRight();
+            TreeNode newRootRight = this;
+            TreeNode newRootLeft = this.getLeft();
+            this.getParent().setLeft(newRoot);
+            newRoot.setParent(this.getParent());
+            newRoot.setRight(newRootRight);
+            newRoot.setLeft(newRootLeft);
+            newRootRight.setParent(newRoot);
+            newRootRight.setLeft(null);
+            newRootLeft.setParent(newRoot);
+            newRootLeft.setRight(null);
+        }
+    }
     void rotateLeft(){
         right.setParent(this.parent);
         right.setLeft(this);
@@ -108,6 +125,7 @@ class TreeNode {
                 .append(" Parent=").append(parent == null ? "" : parent.getVal())
                 .append(" Left=").append(left == null ? "" : left.getVal())
                 .append(" Right=").append(right == null ? "" : right.getVal())
+                .append("]")
                 .toString();
     }
 }

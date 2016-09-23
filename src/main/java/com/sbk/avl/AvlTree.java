@@ -51,6 +51,8 @@ class AvlTree {
         assert node.hasLeftChild();
         if(node.getLeft().balanceFactor() == 1){
             node.LLRotation();
+        } else if (node.getLeft().balanceFactor() == -1){
+            node.LRRotation();
         }
     }
 

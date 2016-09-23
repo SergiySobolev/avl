@@ -31,5 +31,21 @@ public class AvlTreeTest {
         assertFalse(tree.getRoot().getLeft().getLeft().getLeft().hasLeftChild());
         assertFalse(tree.getRoot().getLeft().getLeft().getLeft().hasRightChild());
     }
+    @Test
+    public void insert_LRRotation_1() throws Exception {
+        AvlTree tree = AvlTreeUtils.buildAvlTreeFromArray(10,7,13,4,6,null,17,2);
+        tree.insert(3);
+        tree.print();
+        assertEquals(10, tree.getRoot().getVal());
+        assertEquals(7, tree.getRoot().getLeft().getVal());
+        assertEquals(3, tree.getRoot().getLeft().getLeft().getVal());
+        assertEquals(6, tree.getRoot().getLeft().getRight().getVal());
+        assertEquals(4, tree.getRoot().getLeft().getLeft().getRight().getVal());
+        assertEquals(2, tree.getRoot().getLeft().getLeft().getLeft().getVal());
+        assertFalse(tree.getRoot().getLeft().getLeft().getLeft().hasLeftChild());
+        assertFalse(tree.getRoot().getLeft().getLeft().getLeft().hasRightChild());
+        assertFalse(tree.getRoot().getLeft().getLeft().getRight().hasLeftChild());
+        assertFalse(tree.getRoot().getLeft().getLeft().getRight().hasRightChild());
+    }
 
 }
