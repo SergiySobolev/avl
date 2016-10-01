@@ -36,7 +36,9 @@ class TreeNode {
             newRoot.setParent(this.parent);
             this.setLeft(newRoot.getLeft());
             newRoot.setRight(this);
-            this.getParent().setLeft(newRoot);
+            if(Objects.nonNull(this.getParent())) {
+                this.getParent().setLeft(newRoot);
+            }
             this.setParent(newRoot);
             this.setLeft(newRootRight);
         }
@@ -48,7 +50,9 @@ class TreeNode {
             TreeNode newRoot = left.getRight();
             TreeNode newRootRight = this;
             TreeNode newRootLeft = this.getLeft();
-            this.getParent().setLeft(newRoot);
+            if(Objects.nonNull(this.getParent())) {
+                this.getParent().setLeft(newRoot);
+            }
             newRoot.setParent(this.getParent());
             newRoot.setRight(newRootRight);
             newRoot.setLeft(newRootLeft);
@@ -65,7 +69,9 @@ class TreeNode {
             TreeNode newRoot = right.getRight();
             TreeNode newRootLeft = this;
             TreeNode newRootRight = this.getRight();
-            this.getParent().setRight(newRoot);
+            if(Objects.nonNull(this.getParent())) {
+                this.getParent().setRight(newRoot);
+            }
             newRoot.setParent(this.getParent());
             newRoot.setRight(newRootRight);
             newRoot.setLeft(newRootLeft);

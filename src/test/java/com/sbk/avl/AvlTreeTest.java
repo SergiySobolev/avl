@@ -35,6 +35,15 @@ public class AvlTreeTest {
     }
 
     @Test
+    public void insert_LLRotation_3() throws Exception {
+        AvlTree tree = AvlTreeUtils.buildAvlTreeFromArray(10,9);
+        tree.insert(8);
+        assertEquals(tree.getRoot().getVal(),9);
+        assertEquals(tree.getRoot().getRight().getVal(),10);
+        assertEquals(tree.getRoot().getLeft().getVal(),8);
+    }
+
+    @Test
     public void insert_LRRotation_1() throws Exception {
         AvlTree tree = AvlTreeUtils.buildAvlTreeFromArray(10,7,13,4,6,null,17,2);
         tree.insert(3);
@@ -71,6 +80,16 @@ public class AvlTreeTest {
         assertFalse(tree.getRoot().getLeft().getRight().getLeft().hasRightChild());
         assertFalse(tree.getRoot().getLeft().getRight().getRight().hasLeftChild());
         assertFalse(tree.getRoot().getLeft().getRight().getRight().hasRightChild());
+    }
+
+    @Test
+    public void insert_RRRotation_2() throws Exception {
+        AvlTree tree = AvlTreeUtils.buildAvlTreeFromArray(10,null,11);
+        tree.insert(12);
+        tree.print();
+        assertEquals(tree.getRoot().getVal(),12);
+        assertEquals(tree.getRoot().getRight().getVal(),11);
+        assertEquals(tree.getRoot().getLeft().getVal(),10);
     }
 
 }
