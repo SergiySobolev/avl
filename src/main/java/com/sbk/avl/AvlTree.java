@@ -44,7 +44,19 @@ class AvlTree {
         if(balanceFactor == 2){
             balanceLeft(node);
         }
+        if(balanceFactor == -2){
+            balanceRight(node);
+        }
         if(node.hasParent()) balance(node.getParent());
+    }
+
+    private void balanceRight(TreeNode node) {
+        assert node.hasRightChild();
+        if(node.getRight().balanceFactor() == 1){
+            node.RLRotation();
+        } else if (node.getRight().balanceFactor() == -1){
+            node.RRRotation();
+        }
     }
 
     private void balanceLeft(TreeNode node) {

@@ -25,8 +25,8 @@ public class TreeNodeTest {
     public void calcBalanceFactor_2() throws Exception {
         TreeNode node = AvlTreeUtils.buildTreeNodeFromArray(1,null,3,null,null,null,7);
         assertNotNull(node);
-        assertEquals(node.balanceFactor(), 2);
-        assertEquals(node.getRight().balanceFactor(), 1);
+        assertEquals(node.balanceFactor(), -2);
+        assertEquals(node.getRight().balanceFactor(), -1);
         assertEquals(node.getRight().getRight().balanceFactor(), 0);
     }
 }

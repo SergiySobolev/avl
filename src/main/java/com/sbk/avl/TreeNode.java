@@ -58,6 +58,28 @@ class TreeNode {
             newRootLeft.setRight(null);
         }
     }
+
+    void RRRotation() {
+        if(this.hasRightChild()) {
+            log.info("RR rotation around node [{}]", val);
+            TreeNode newRoot = right.getRight();
+            TreeNode newRootLeft = this;
+            TreeNode newRootRight = this.getRight();
+            this.getParent().setRight(newRoot);
+            newRoot.setParent(this.getParent());
+            newRoot.setRight(newRootRight);
+            newRoot.setLeft(newRootLeft);
+            newRootRight.setParent(newRoot);
+            newRootRight.setRight(null);
+            newRootLeft.setParent(newRoot);
+            newRootLeft.setRight(null);
+        }
+    }
+
+
+    void RLRotation() {
+    }
+
     void rotateLeft(){
         right.setParent(this.parent);
         right.setLeft(this);
