@@ -31,9 +31,9 @@ class TreeNode {
     void LLRotation() {
         if(this.hasLeftChild()) {
             log.info("LL rotation around node [{}]", val);
-            TreeNode newRoot = left;
-            TreeNode newRootRight = left.getRight();
-            newRoot.setParent(this.parent);
+            TreeNode newRoot = getLeft();
+            TreeNode newRootRight = getLeft().getRight();
+            newRoot.setParent(this.getParent());
             this.setLeft(newRoot.getLeft());
             newRoot.setRight(this);
             if(Objects.nonNull(this.getParent())) {
@@ -47,7 +47,7 @@ class TreeNode {
     void LRRotation() {
         if(this.hasLeftChild()) {
             log.info("LR rotation around node [{}]", val);
-            TreeNode newRoot = left.getRight();
+            TreeNode newRoot = getLeft().getRight();
             TreeNode newRootRight = this;
             TreeNode newRootLeft = this.getLeft();
             if(Objects.nonNull(this.getParent())) {
@@ -66,7 +66,7 @@ class TreeNode {
     void RRRotation() {
         if(this.hasRightChild()) {
             log.info("RR rotation around node [{}]", val);
-            TreeNode newRoot = right.getRight();
+            TreeNode newRoot = getRight().getRight();
             TreeNode newRootLeft = this;
             TreeNode newRootRight = this.getRight();
             if(Objects.nonNull(this.getParent())) {
@@ -82,8 +82,23 @@ class TreeNode {
         }
     }
 
-
     void RLRotation() {
+        if(this.hasRightChild()) {
+            log.info("RL rotation around node [{}]", val);
+            TreeNode newRoot = getRight().getLeft();
+            TreeNode newRootRight = this.getRight();
+            TreeNode newRootLeft = this;
+            if(Objects.nonNull(this.getParent())) {
+                this.getParent().setRight(newRoot);
+            }
+            newRoot.setParent(this.getParent());
+            newRoot.setRight(newRootRight);
+            newRoot.setLeft(newRootLeft);
+            newRootRight.setParent(newRoot);
+            newRootRight.setLeft(null);
+            newRootLeft.setParent(newRoot);
+            newRootLeft.setRight(null);
+        }
     }
 
     void rotateLeft(){

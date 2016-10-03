@@ -101,4 +101,28 @@ public class AvlTreeTest {
         assertEquals(tree.getRoot().getLeft().getVal(),10);
     }
 
+    @Test
+    public void insert_RLRotation_1() throws Exception {
+        AvlTree tree = AvlTreeUtils.buildAvlTreeFromArray(10,5,13,4,6,null,17,null,null,null,8);
+        tree.insert(7);
+        assertEquals(10, tree.getRoot().getVal());
+        assertEquals(5, tree.getRoot().getLeft().getVal());
+        assertEquals(7, tree.getRoot().getLeft().getRight().getVal());
+        assertEquals(6, tree.getRoot().getLeft().getRight().getLeft().getVal());
+        assertEquals(8, tree.getRoot().getLeft().getRight().getRight().getVal());
+        assertFalse(tree.getRoot().getLeft().getRight().getLeft().hasRightChild());
+        assertFalse(tree.getRoot().getLeft().getRight().getLeft().hasLeftChild());
+        assertFalse(tree.getRoot().getLeft().getRight().getRight().hasRightChild());
+        assertFalse(tree.getRoot().getLeft().getRight().getRight().hasLeftChild());
+    }
+
+    @Test
+    public void insert_RLRotation_2() throws Exception {
+        AvlTree tree = AvlTreeUtils.buildAvlTreeFromArray(10,8);
+        tree.insert(7);
+        tree.print();
+        assertEquals(tree.getRoot().getVal(),8);
+        assertEquals(tree.getRoot().getRight().getVal(),10);
+        assertEquals(tree.getRoot().getLeft().getVal(),7);
+    }
 }
