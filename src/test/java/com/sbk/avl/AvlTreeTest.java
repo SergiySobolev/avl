@@ -77,10 +77,9 @@ public class AvlTreeTest {
         assertEquals(10, tree.getRoot().getVal());
         assertEquals(5, tree.getRoot().getLeft().getVal());
         assertEquals(4, tree.getRoot().getLeft().getLeft().getVal());
-        assertEquals(8, tree.getRoot().getLeft().getRight().getVal());
-        assertEquals(4, tree.getRoot().getLeft().getLeft().getVal());
+        assertEquals(7, tree.getRoot().getLeft().getRight().getVal());
         assertEquals(6, tree.getRoot().getLeft().getRight().getLeft().getVal());
-        assertEquals(7, tree.getRoot().getLeft().getRight().getRight().getVal());
+        assertEquals(8, tree.getRoot().getLeft().getRight().getRight().getVal());
         assertFalse(tree.getRoot().getLeft().getLeft().hasLeftChild());
         assertFalse(tree.getRoot().getLeft().getLeft().hasRightChild());
         assertFalse(tree.getRoot().getLeft().getRight().getRight().hasLeftChild());
@@ -96,8 +95,8 @@ public class AvlTreeTest {
         AvlTree tree = AvlTreeUtils.buildAvlTreeFromArray(10,null,11);
         tree.insert(12);
         tree.print();
-        assertEquals(tree.getRoot().getVal(),12);
-        assertEquals(tree.getRoot().getRight().getVal(),11);
+        assertEquals(tree.getRoot().getVal(),11);
+        assertEquals(tree.getRoot().getRight().getVal(),12);
         assertEquals(tree.getRoot().getLeft().getVal(),10);
     }
 
@@ -124,5 +123,33 @@ public class AvlTreeTest {
         assertEquals(tree.getRoot().getVal(),8);
         assertEquals(tree.getRoot().getRight().getVal(),10);
         assertEquals(tree.getRoot().getLeft().getVal(),7);
+    }
+
+    @Test
+    public void multiple_insert_1()  throws Exception {
+        AvlTree tree = new AvlTree();
+        tree.insert(1);
+        tree.insert(2);
+        tree.insert(3);
+        tree.insert(6);
+        tree.insert(9);
+        tree.insert(-2);
+        tree.insert(-9);
+        tree.insert(-8);
+        tree.insert(-7);
+        tree.print();
+        assertEquals(tree.getRoot().getVal(),2);
+
+        assertEquals(tree.getRoot().getLeft().getVal(),-2);
+        assertEquals(tree.getRoot().getRight().getVal(),6);
+
+        assertEquals(tree.getRoot().getLeft().getLeft().getVal(),-8);
+        assertEquals(tree.getRoot().getLeft().getRight().getVal(),1);
+        assertEquals(tree.getRoot().getRight().getLeft().getVal(),3);
+        assertEquals(tree.getRoot().getRight().getRight().getVal(),9);
+
+        assertEquals(tree.getRoot().getLeft().getLeft().getLeft().getVal(),-9);
+        assertEquals(tree.getRoot().getLeft().getLeft().getRight().getVal(),-7);
+
     }
 }
