@@ -29,4 +29,15 @@ public class TreeNodeTest {
         assertEquals(node.getRight().balanceFactor(), -1);
         assertEquals(node.getRight().getRight().balanceFactor(), 0);
     }
+
+
+    @Test
+    public void leftDescendant_1() {
+        AvlTree tree = AvlTreeUtils.buildAvlTreeFromArray(10,7,13);
+        assertEquals(tree.getRoot().leftDescendant().getVal(), 7);
+        tree.insert(9);
+        assertEquals(tree.getRoot().leftDescendant().getVal(), 7);
+        tree.insert(5);
+        assertEquals(tree.getRoot().leftDescendant().getVal(), 5);
+    }
 }

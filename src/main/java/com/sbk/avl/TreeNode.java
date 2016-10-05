@@ -96,6 +96,15 @@ class TreeNode {
         }
     }
 
+    TreeNode leftDescendant() {
+        if(!hasLeftChild()) return null;
+        TreeNode cur  = this;
+        while(Objects.nonNull(cur.getLeft())){
+            cur = cur.getLeft();
+        }
+        return cur;
+    }
+
     private void setNewSubRootOfYourParent(TreeNode newRoot) {
         if (Objects.nonNull(this.getParent())) {
             if (this.getParent().getLeft() == this) {
@@ -123,6 +132,10 @@ class TreeNode {
 
     boolean hasParent() {
         return Objects.nonNull(parent);
+    }
+
+    boolean isLeaf() {
+        return !(hasRightChild() || hasLeftChild());
     }
 
     int height() {
