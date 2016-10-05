@@ -97,12 +97,16 @@ class TreeNode {
     }
 
     TreeNode leftDescendant() {
-        if(!hasLeftChild()) return null;
+        if(!hasLeftChild()) return this;
         TreeNode cur  = this;
         while(Objects.nonNull(cur.getLeft())){
             cur = cur.getLeft();
         }
         return cur;
+    }
+
+    TreeNode next() {
+        return hasRightChild() ? getRight().leftDescendant() : getParent();
     }
 
     private void setNewSubRootOfYourParent(TreeNode newRoot) {

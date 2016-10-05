@@ -30,7 +30,6 @@ public class TreeNodeTest {
         assertEquals(node.getRight().getRight().balanceFactor(), 0);
     }
 
-
     @Test
     public void leftDescendant_1() {
         AvlTree tree = AvlTreeUtils.buildAvlTreeFromArray(10,7,13);
@@ -39,5 +38,33 @@ public class TreeNodeTest {
         assertEquals(tree.getRoot().leftDescendant().getVal(), 7);
         tree.insert(5);
         assertEquals(tree.getRoot().leftDescendant().getVal(), 5);
+    }
+
+    @Test
+    public void leftDescendant_2() {
+        AvlTree tree = AvlTreeUtils.buildAvlTreeFromArray(10);
+        assertEquals(tree.getRoot().leftDescendant().getVal(), 10);
+    }
+
+    @Test
+    public void next_1() {
+        AvlTree tree = AvlTreeUtils.buildAvlTreeFromArray(10);
+        assertNull(tree.getRoot().next());
+        tree.insert(20);
+        assertEquals(tree.getRoot().next().getVal(), 20);
+        TreeNode curRoot = tree.getRoot();
+        tree.insert(19);
+        assertEquals(curRoot.next().getVal(), 19);
+    }
+
+    @Test
+    public void next_2() {
+        AvlTree tree = AvlTreeUtils.buildAvlTreeFromArray(10);
+        assertNull(tree.getRoot().next());
+        tree.insert(5);
+        tree.insert(20);
+        assertEquals(tree.getRoot().next().getVal(), 20);
+        tree.insert(19);
+        assertEquals(tree.getRoot().next().getVal(), 19);
     }
 }
