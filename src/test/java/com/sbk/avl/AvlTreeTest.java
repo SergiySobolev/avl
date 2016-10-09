@@ -152,4 +152,101 @@ public class AvlTreeTest {
         assertEquals(tree.getRoot().getLeft().getLeft().getRight().getVal(),-7);
 
     }
+
+    @Test
+    public void next_1() throws Exception {
+        AvlTree tree = AvlTreeUtils.buildAvlTreeFromArray(10,7,13,4,6,12,17,3);
+        System.out.println(tree.next(tree.getRoot()));
+    }
+
+    @Test
+    public void delete_1() throws Exception {
+        AvlTree tree = new AvlTree();
+        tree.insert(1);
+        tree.delete(1);
+        assertTrue(tree.isEmpty());
+    }
+
+    @Test
+    public void delete_2() throws Exception {
+        AvlTree tree = new AvlTree();
+        tree.insert(1);
+        tree.insert(2);
+        tree.delete(2);
+        assertFalse(tree.isEmpty());
+        assertEquals(tree.getRoot().getVal(), 1);
+        assertFalse(tree.getRoot().hasRightChild());
+        assertFalse(tree.getRoot().hasLeftChild());
+    }
+
+    @Test
+    public void delete_3() throws Exception {
+        AvlTree tree = new AvlTree();
+        tree.insert(1);
+        tree.insert(2);
+        tree.insert(-1);
+        tree.insert(3);
+        tree.print();
+        tree.delete(2);
+//        tree.print();
+//        assertFalse(tree.isEmpty());
+//        assertEquals(tree.getRoot().getVal(), 1);
+//        assertFalse(tree.getRoot().hasRightChild());
+//        assertFalse(tree.getRoot().hasLeftChild());
+    }
+
+    @Test
+    public void delete_4() throws Exception {
+        AvlTree tree = new AvlTree();
+        tree.insert(1);
+        tree.insert(2);
+        tree.insert(-1);
+        tree.insert(3);
+        tree.delete(2);
+        assertEquals(tree.getRoot().getVal(), 1);
+        assertEquals(tree.getRoot().getLeft().getVal(), -1);
+        assertEquals(tree.getRoot().getRight().getVal(), 3);
+    }
+
+    @Test
+    public void delete_5() throws Exception {
+        AvlTree tree = new AvlTree();
+        tree.insert(1);
+        tree.insert(-1);
+        tree.insert(3);
+        tree.insert(4);
+        tree.delete(3);
+        tree.print();
+        assertEquals(tree.getRoot().getVal(), 1);
+        assertEquals(tree.getRoot().getLeft().getVal(), -1);
+        assertEquals(tree.getRoot().getRight().getVal(), 4);
+    }
+
+    @Test
+    public void delete_6() throws Exception {
+        AvlTree tree = new AvlTree();
+        tree.insert(5);
+        tree.insert(4);
+        tree.insert(3);
+        tree.insert(2);
+        tree.delete(3);
+        tree.print();
+        assertEquals(tree.getRoot().getVal(), 4);
+        assertEquals(tree.getRoot().getLeft().getVal(), 2);
+        assertEquals(tree.getRoot().getRight().getVal(), 5);
+    }
+
+    @Test
+    public void delete_7() throws Exception {
+        AvlTree tree = new AvlTree();
+        tree.insert(5);
+        tree.insert(4);
+        tree.insert(2);
+        tree.insert(3);
+        tree.delete(2);
+        tree.print();
+        assertEquals(tree.getRoot().getVal(), 4);
+        assertEquals(tree.getRoot().getLeft().getVal(), 3);
+        assertEquals(tree.getRoot().getRight().getVal(), 5);
+    }
 }

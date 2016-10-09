@@ -134,6 +134,10 @@ class TreeNode {
         return Objects.nonNull(right);
     }
 
+    boolean hasOnlyOneChild() {
+        return hasLeftChild() ^ hasRightChild();
+    }
+
     boolean hasParent() {
         return Objects.nonNull(parent);
     }
