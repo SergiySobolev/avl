@@ -8,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.Objects;
 
+import static java.util.Objects.isNull;
+
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,7 +17,7 @@ import java.util.Objects;
 class AvlTree {
     private TreeNode root;
     void insert(int newKey){
-        if(Objects.isNull(root)) {
+        if(isNull(root)) {
             root = new TreeNode(newKey);
         }
         insert(newKey, root);
@@ -34,7 +36,7 @@ class AvlTree {
     }
 
     private void delete(TreeNode curRoot, int keyToDelete) {
-        if(Objects.isNull(curRoot)) return;
+        if(isNull(curRoot)) return;
         log.info("Deleting key [{}] from node [{}]", keyToDelete, curRoot.getVal());
         if(curRoot.getVal() > keyToDelete) {
             delete(curRoot.getLeft(), keyToDelete);
@@ -54,7 +56,6 @@ class AvlTree {
             } else {
                 curRoot.getParent().setRight(null);
             }
-            balance(curRoot.getParent());
         } else if(curRoot.hasOnlyOneChild()) {
             if(curRoot.hasRightChild()){
                 if(isTreeRoot(curRoot)){
@@ -69,7 +70,6 @@ class AvlTree {
                         curRootParent.setLeft(curRoot.getRight());
                         curRoot.getRight().setParent(curRootParent);
                     }
-                    balance(curRootParent);
                 }
             }
             if(curRoot.hasLeftChild()){
@@ -85,13 +85,56 @@ class AvlTree {
                         curRootParent.setLeft(curRoot.getLeft());
                         curRoot.getLeft().setParent(curRootParent);
                     }
-                    balance(curRootParent);
                 }
             }
-            if(isTreeRoot(curRoot)) {
-              //  root
+        } else if(curRoot.hasTwoChildren()){
+            TreeNode nextKey = curRoot.next();
+            assert !nextKey.hasLeftChild();
+            TreeNode nextKeyParent = nextKey.getParent();
+            TreeNode nextKeyRight = nextKey.getRight();
+            replace(nextKey, nextKeyRight);
+            replace(curRoot, nextKey);
+            if(root == curRoot) root = nextKey;
+            curRoot = nextKeyParent;
+        }
+        balance(curRoot);
+    }
+
+    public void swapNodes(TreeNode one, TreeNode two) {
+        if(isNull(one) || isNull(two)) return;
+        TreeNode oneParent = one.getParent();
+        one.setParent(two.getParent());
+        two.setParent(oneParent);
+        TreeNode oneLeft = one.getLeft();
+        one.setLeft(two.getLeft());
+        two.setLeft(oneLeft);
+        TreeNode oneRight = one.getRight();
+        one.setRight(two.getRight());
+        two.setRight(oneRight);
+    }
+
+    public void replace(TreeNode toReplace, TreeNode replacer) {
+        if(isNull(toReplace) || isNull(replacer)) return;
+
+        TreeNode toReplaceParent = toReplace.getParent();
+        if(Objects.nonNull(toReplaceParent)) {
+            if (toReplaceParent.getLeft() == toReplace) {
+                toReplaceParent.setLeft(replacer);
+            } else {
+                toReplaceParent.setRight(replacer);
             }
         }
+        replacer.setParent(toReplace.getParent());
+
+        if(toReplace.hasRightChild() && toReplace.getRight() != replacer) {
+            replacer.setRight(toReplace.getRight());
+            replacer.getRight().setParent(replacer);
+        }
+        if(toReplace.hasLeftChild() && toReplace.getLeft() != replacer) {
+            replacer.setLeft(toReplace.getLeft());
+            replacer.getLeft().setParent(replacer);
+        }
+        toReplace.cutOf();
     }
 
     private boolean isTreeRoot(TreeNode n) {
@@ -153,7 +196,7 @@ class AvlTree {
     }
 
     void print(){
-        if(Objects.isNull(root)) return;
+        if(isNull(root)) return;
         root.print();
     }
 }

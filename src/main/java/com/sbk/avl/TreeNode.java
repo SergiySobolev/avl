@@ -138,6 +138,10 @@ class TreeNode {
         return hasLeftChild() ^ hasRightChild();
     }
 
+    boolean hasTwoChildren() {
+        return hasLeftChild() && hasRightChild();
+    }
+
     boolean hasParent() {
         return Objects.nonNull(parent);
     }
@@ -156,6 +160,12 @@ class TreeNode {
     int balanceFactor() {
         return (Objects.nonNull(getLeft()) ? getLeft().height() : 0)
                 - (Objects.nonNull(getRight()) ? getRight().height() : 0);
+    }
+
+    void cutOf() {
+        setParent(null);
+        setRight(null);
+        setLeft(null);
     }
 
     void print() {
