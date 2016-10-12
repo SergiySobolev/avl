@@ -186,13 +186,11 @@ public class AvlTreeTest {
         tree.insert(2);
         tree.insert(-1);
         tree.insert(3);
-        tree.print();
         tree.delete(2);
-//        tree.print();
-//        assertFalse(tree.isEmpty());
-//        assertEquals(tree.getRoot().getVal(), 1);
-//        assertFalse(tree.getRoot().hasRightChild());
-//        assertFalse(tree.getRoot().hasLeftChild());
+        assertFalse(tree.isEmpty());
+        assertEquals(tree.getRoot().getVal(), 1);
+        assertEquals(tree.getRoot().getLeft().getVal(), -1);
+        assertEquals(tree.getRoot().getRight().getVal(), 3);
     }
 
     @Test
